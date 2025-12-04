@@ -1,0 +1,45 @@
+/* src/layouts/AdminLayout.css */
+
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #020617; /* xanh đậm */
+    color: #e5e7eb;
+  }
+  
+  /* Component Admin (sidebar + header) sẽ nằm bên trái */
+  .admin-layout > *:first-child {
+    flex-shrink: 0;
+  }
+  
+  /* Phần nội dung chính bên phải */
+  .admin-content {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+  }
+  
+  /* Thanh nhỏ chứa link "Hồ sơ cá nhân" */
+  .admin-extra-menu {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+  }
+  
+  .admin-profile-link {
+    background: #4f46e5;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+    transition: 0.2s;
+  }
+  
+  .admin-profile-link:hover {
+    background: #6366f1;
+    transform: translateY(-1px);
+  }
+  

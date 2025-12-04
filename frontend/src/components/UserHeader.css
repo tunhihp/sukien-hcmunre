@@ -1,0 +1,210 @@
+/* ================================
+   HEADER TỔNG THỂ
+================================ */
+.user-header {
+    background: linear-gradient(90deg, #dff3ff, #c9ecff, #dff3ff);
+    padding: 14px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #b6e6ff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* ================================
+   LOGO
+================================ */
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0c4a6e;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+}
+
+    .logo span {
+        color: #0284c7;
+    }
+
+/* ================================
+   MENU CHÍNH
+================================ */
+.nav-menu a {
+    margin: 0 18px;
+    font-weight: 600;
+    color: #0f172a;
+    text-decoration: none;
+    transition: 0.2s ease;
+    font-size: 16px;
+}
+
+    .nav-menu a:hover {
+        color: #0284c7;
+        text-shadow: 0px 0px 6px rgba(0, 176, 255, 0.4);
+        transform: translateY(-2px);
+    }
+
+/* ================================
+   PHẦN BÊN PHẢI
+================================ */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+/* ================================
+   ICON THÔNG BÁO
+================================ */
+.notification-icon a {
+    font-size: 20px;
+    transition: 0.2s;
+}
+
+    .notification-icon a:hover {
+        transform: scale(1.2);
+        color: #0284c7;
+    }
+
+/* ================================
+   AVATAR + TÊN + DROPDOWN
+================================ */
+.user-menu {
+    position: relative;
+}
+
+.user-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: 0.2s ease;
+}
+
+    .user-trigger:hover {
+        background: rgba(0, 112, 255, 0.08);
+    }
+
+.avatar-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #bff0ff;
+}
+
+/* ⭐ FIX TÊN DÀI – CHỈNH ĐẸP HƠN ⭐ */
+.username {
+    max-width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 15px;
+}
+
+.arrow {
+    font-size: 14px;
+    color: #0f172a;
+}
+
+/* ================================
+   DROPDOWN (MENU TÀI KHOẢN)
+================================ */
+.dropdown {
+    position: absolute;
+    right: 0;
+    margin-top: 10px;
+    background: white;
+    border: 1px solid #b6e6ff;
+    padding: 12px;
+    border-radius: 10px;
+    width: 190px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    animation: fadeDown 0.2s ease;
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px 8px;
+    text-decoration: none;
+    color: #0c4a6e;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+    .dropdown a:hover {
+        background: #e0f7ff;
+        color: #0284c7;
+        padding-left: 14px;
+    }
+
+/* NÚT ĐĂNG XUẤT */
+.logout-btn {
+    background: #ef4444;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+    .logout-btn:hover {
+        background: #dc2626;
+        transform: translateY(-2px);
+    }
+
+/* ================================
+   NÚT LOGIN / REGISTER
+================================ */
+.btn-login,
+.btn-register {
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-login {
+    background: white;
+    color: #0f172a;
+    border: 1px solid #b6e6ff;
+    transition: 0.2s;
+}
+
+    .btn-login:hover {
+        background: #dff3ff;
+    }
+
+.btn-register {
+    background: #0284c7;
+    color: white;
+    transition: 0.2s;
+}
+
+    .btn-register:hover {
+        background: #0369a1;
+    }

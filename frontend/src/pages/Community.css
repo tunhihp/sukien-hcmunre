@@ -1,0 +1,150 @@
+﻿/* FONT CHỮ CHÍNH */
+* {
+    font-family: "Inter", "Poppins", sans-serif;
+}
+
+/* NỀN TOÀN TRANG – BLUE PASTEL NHƯ TRANG CHỦ */
+.community-container {
+    min-height: 100vh;
+    padding: 60px 20px;
+    background: #dff1ff; /* đồng bộ trang chủ */
+    color: #0c4a6e; /* màu chữ xanh than */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* HEADER */
+.community-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+    .community-header h1 {
+        font-size: 36px;
+        font-weight: 800;
+        color: #0c4a6e;
+        text-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .community-header .sub {
+        font-size: 18px;
+        margin-top: 6px;
+        color: #1e3a56;
+    }
+
+    .community-header .desc {
+        font-size: 15px;
+        margin-top: 6px;
+        color: #34556e;
+    }
+
+/* CARD – WHITE + VIỀN SÁNG + BÓNG PASTEL */
+.message-box {
+    background: #ffffff;
+    border: 2px solid rgba(46, 134, 193, 0.35); /* xanh dương pastel */
+    padding: 36px;
+    border-radius: 18px;
+    width: 100%;
+    max-width: 820px;
+    /* Bóng sáng đẹp – giống style trang chủ */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12), 0 0 18px rgba(46, 134, 193, 0.25);
+    animation: fadeUp 0.5s ease;
+    backdrop-filter: blur(4px);
+    color: #0c4a6e;
+}
+
+    /* TITLE TRONG CARD */
+    .message-box h2,
+    .message-box h3 {
+        color: #0c4a6e;
+        font-weight: 700;
+    }
+
+    /* LABEL */
+    .message-box label {
+        font-weight: 600;
+        font-size: 15px;
+        margin-bottom: 10px;
+        color: #0c4a6e;
+    }
+
+    /* TEXTAREA */
+    .message-box textarea {
+        width: 100%;
+        background-color: #f2f9ff;
+        color: #0c4a6e;
+        padding: 16px;
+        border-radius: 12px;
+        border: 2px solid rgba(0, 102, 204, 0.35);
+        font-size: 15px;
+        height: 150px;
+        margin-bottom: 20px;
+        resize: vertical;
+        outline: none;
+        transition: 0.25s ease;
+    }
+
+        .message-box textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 12px rgba(60, 130, 246, 0.4);
+        }
+
+        .message-box textarea::placeholder {
+            color: #6c8aa8;
+        }
+
+    /* BUTTON GỬI – ĐỒNG BỘ BUTTON TRANG CHỦ */
+    .message-box button {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #3b82f6, #0ea5e9); /* xanh dương → xanh cyan */
+        color: white;
+        font-weight: 700;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        box-shadow: 0 6px 20px rgba(14, 165, 233, 0.35), 0 0 12px rgba(59, 130, 246, 0.35);
+    }
+
+        .message-box button:hover {
+            background: linear-gradient(135deg, #2563eb, #0284c7);
+            transform: translateY(-3px);
+        }
+
+        .message-box button:active {
+            transform: scale(0.96);
+        }
+
+/* FOOTER */
+.community-footer {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 14px;
+    color: #0c4a6e;
+}
+
+    .community-footer .school {
+        font-weight: 700;
+    }
+
+    .community-footer .copyright {
+        font-size: 12px;
+        margin-top: 6px;
+        color: #34556e;
+    }
+
+/* ANIMATION */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
