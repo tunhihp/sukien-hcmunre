@@ -1,17 +1,17 @@
 ﻿const sql = require("mssql");
 
 const config = {
-    user: "sa",
-    password: "123456",
-    server: "localhost",
-    database: "EcoEventHCMUNRE",
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    server: process.env.DB_SERVER,     // ví dụ: my-sql-host.database.windows.net
+    database: process.env.DB_NAME,
     options: {
-        encrypt: false,
+        encrypt: true,                 // nếu dùng Azure/AWS thì nên để true
         trustServerCertificate: true,
         enableArithAbort: true,
         useUTC: true,
         connectionIsolationLevel: sql.ISOLATION_LEVEL.READ_COMMITTED,
-        tdsVersion: "7_4"      // ⭐ GIỮ UNICODE CHUẨN, KHÔNG LỖI "Đ"
+        tdsVersion: "7_4"
     }
 };
 
