@@ -1,5 +1,4 @@
 // frontend/src/pages/admin/CheckinHistory.jsx
-// Trang lịch sử check-in chi tiết (tất cả sự kiện)
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -10,7 +9,7 @@ function CheckinHistory() {
     const { user } = useAuth();
     const [loading, setLoading] = useState(true);
     const [history, setHistory] = useState([]);
-    const [filter, setFilter] = useState('all'); // 'all', 'today', 'week', 'month'
+    const [filter, setFilter] = useState('all');
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
@@ -22,21 +21,24 @@ function CheckinHistory() {
         fetchHistory();
     }, [user]);
 
+    // ==========================
+    // FIXED FETCH (100% chạy)
+    // ==========================
     const fetchHistory = async () => {
         try {
             setLoading(true);
+
             const token = localStorage.getItem("token");
-
             const API_URL = import.meta.env.VITE_API_URL;
-            fetch(`${API_URL}/api/admin/history`, {
 
+            const res = await fetch(`${API_URL}/api/admin/history`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             });
 
             if (!res.ok) {
-                throw new Error("Lỗi tải lịch sử!");
+                throw new Error("Không thể tải lịch sử");
             }
 
             const data = await res.json();
@@ -50,27 +52,29 @@ function CheckinHistory() {
         }
     };
 
-    // Lọc dữ liệu
+    // ==========================
+    // BỘ LỌC DỮ LIỆU
+    // ==========================
     const filteredHistory = history.filter(item => {
-        // Lọc theo thời gian
-        if (filter !== 'all') {
-            const itemDate = new Date(item.thoi_gian_checkin || item.timestamp);
-            const now = new Date();
-            switch (filter) {
-                case 'today':
-                    return itemDate.toDateString() === now.toDateString();
-                case 'week':
-                    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-                    return itemDate >= weekAgo;
-                case 'month':
-                    const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-                    return itemDate >= monthAgo;
-                default:
-                    return true;
-            }
+        const itemDate = new Date(item.thoi_gian_checkin || item.timestamp);
+        const now = new Date();
+
+        // Lọc thời gian
+        if (filter === 'today') {
+            if (itemDate.toDateString() !== now.toDateString()) return false;
         }
 
-        // Tìm kiếm
+        if (filter === 'week') {
+            const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+            if (itemDate < weekAgo) return false;
+        }
+
+        if (filter === 'month') {
+            const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+            if (itemDate < monthAgo) return false;
+        }
+
+        // Lọc theo từ khoá tìm kiếm
         if (searchTerm.trim()) {
             const term = searchTerm.toLowerCase();
             return (
@@ -85,6 +89,9 @@ function CheckinHistory() {
         return true;
     });
 
+    // ==========================
+    // LOADING UI
+    // ==========================
     if (loading) {
         return (
             <div style={{
@@ -104,6 +111,9 @@ function CheckinHistory() {
         );
     }
 
+    // ==========================
+    // UI CHÍNH
+    // ==========================
     return (
         <div style={{
             minHeight: '100vh',
@@ -111,6 +121,7 @@ function CheckinHistory() {
             color: 'white',
             padding: '30px 20px'
         }}>
+
             {/* Header */}
             <div style={{ marginBottom: '30px' }}>
                 <button
@@ -122,7 +133,6 @@ function CheckinHistory() {
                         padding: '10px 20px',
                         borderRadius: '8px',
                         cursor: 'pointer',
-                        fontSize: '14px',
                         marginBottom: '20px'
                     }}
                 >
@@ -132,11 +142,11 @@ function CheckinHistory() {
                 <h1 style={{
                     fontSize: '32px',
                     fontWeight: 'bold',
-                    marginBottom: '10px',
                     textAlign: 'center'
                 }}>
                     📊 Lịch sử Check-in
                 </h1>
+
                 <p style={{
                     textAlign: 'center',
                     color: '#cbd5e1',
@@ -167,9 +177,7 @@ function CheckinHistory() {
                         borderRadius: '10px',
                         border: '1px solid rgba(167, 139, 250, 0.3)',
                         backgroundColor: 'rgba(15, 23, 42, 0.6)',
-                        color: 'white',
-                        fontSize: '14px',
-                        outline: 'none'
+                        color: 'white'
                     }}
                 />
 
@@ -179,21 +187,20 @@ function CheckinHistory() {
                             key={f}
                             onClick={() => setFilter(f)}
                             style={{
-                                    padding: '12px 20px',
-                                    borderRadius: '10px',
-                                    cursor: 'pointer',
-                                    fontSize: '14px',
-                                    fontWeight: '500',
-                                    backgroundColor: filter === f
-                                        ? 'rgba(139, 92, 246, 0.8)'
-                                        : 'rgba(255, 255, 255, 0.1)',
-                                    color: 'white',
-                                    border: `1px solid ${
-                                        filter === f 
-                                        ? 'rgba(167, 139, 250, 0.6)' 
-                                        : 'rgba(255, 255, 255, 0.2)'
-                                    }`
-                                }}
+                                padding: '12px 20px',
+                                borderRadius: '10px',
+                                cursor: 'pointer',
+                                fontWeight: '500',
+                                backgroundColor:
+                                    filter === f ? 'rgba(139,92,246,0.8)' :
+                                        'rgba(255,255,255,0.1)',
+                                border:
+                                    `1px solid ${
+                                        filter === f ? 'rgba(167,139,250,0.6)' :
+                                            'rgba(255,255,255,0.2)'
+                                    }`,
+                                color: 'white'
+                            }}
                         >
                             {f === 'all' && '📋 Tất cả'}
                             {f === 'today' && '📅 Hôm nay'}
@@ -204,14 +211,13 @@ function CheckinHistory() {
                 </div>
             </div>
 
-            {/* Export button */}
+            {/* Export */}
             {filteredHistory.length > 0 && (
                 <div style={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    marginBottom: '20px',
                     maxWidth: '1200px',
-                    margin: '0 auto 20px'
+                    margin: '0 auto 20px',
+                    display: 'flex',
+                    justifyContent: 'flex-end'
                 }}>
                     <ExportToExcel
                         data={filteredHistory}
@@ -232,9 +238,8 @@ function CheckinHistory() {
                 maxWidth: '1200px',
                 margin: '0 auto',
                 backgroundColor: 'rgba(255,255,255,0.08)',
-                borderRadius: '16px',
                 padding: '24px',
-                border: '1px solid rgba(167,139,250,0.3)'
+                borderRadius: '16px'
             }}>
                 {filteredHistory.length === 0 ? (
                     <div style={{ textAlign: 'center', padding: '40px' }}>
@@ -245,33 +250,31 @@ function CheckinHistory() {
                     <table style={{
                         width: '100%',
                         borderCollapse: 'collapse',
-                        backgroundColor: 'rgba(15, 23, 42, 0.6)',
-                        borderRadius: '12px',
-                        overflow: 'hidden'
+                        backgroundColor: 'rgba(15,23,42,0.6)'
                     }}>
                         <thead>
-                            <tr style={{ backgroundColor: 'rgba(139, 92, 246, 0.3)' }}>
-                                <th style={{ padding: '12px', textAlign: 'left' }}>STT</th>
-                                <th style={{ padding: '12px', textAlign: 'left' }}>Họ tên</th>
-                                <th style={{ padding: '12px', textAlign: 'left' }}>MSSV</th>
-                                <th style={{ padding: '12px', textAlign: 'left' }}>Sự kiện</th>
-                                <th style={{ padding: '12px', textAlign: 'left' }}>Thời gian check-in</th>
-                                <th style={{ padding: '12px', textAlign: 'left' }}>Điểm RL</th>
+                            <tr style={{ backgroundColor: 'rgba(139,92,246,0.3)' }}>
+                                <th>STT</th>
+                                <th>Họ tên</th>
+                                <th>MSSV</th>
+                                <th>Sự kiện</th>
+                                <th>Thời gian</th>
+                                <th>Điểm RL</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             {filteredHistory.map((item, index) => (
-                                <tr key={index} style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-                                    <td style={{ padding: '12px' }}>{index + 1}</td>
-                                    <td style={{ padding: '12px' }}>{item.ho_ten || item.name || 'N/A'}</td>
-                                    <td style={{ padding: '12px' }}>{item.mssv || 'N/A'}</td>
-                                    <td style={{ padding: '12px' }}>{item.event || item.ten_su_kien || 'N/A'}</td>
-                                    <td style={{ padding: '12px' }}>
-                                        {item.thoi_gian_checkin || item.timestamp
-                                            ? new Date(item.thoi_gian_checkin || item.timestamp).toLocaleString('vi-VN')
-                                            : 'N/A'}
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{item.ho_ten || item.name || 'N/A'}</td>
+                                    <td>{item.mssv || 'N/A'}</td>
+                                    <td>{item.event || item.ten_su_kien || 'N/A'}</td>
+                                    <td>
+                                        {new Date(item.thoi_gian_checkin || item.timestamp)
+                                            .toLocaleString('vi-VN')}
                                     </td>
-                                    <td style={{ padding: '12px', color: '#60a5fa', fontWeight: 'bold' }}>
+                                    <td style={{ color: '#60a5fa', fontWeight: 'bold' }}>
                                         ⭐ {item.diemRL || item.diem_cong || 0} điểm
                                     </td>
                                 </tr>
@@ -280,9 +283,9 @@ function CheckinHistory() {
                     </table>
                 )}
             </div>
+
         </div>
     );
 }
 
 export default CheckinHistory;
-
