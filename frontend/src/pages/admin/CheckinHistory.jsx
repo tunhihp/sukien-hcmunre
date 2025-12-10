@@ -27,7 +27,9 @@ function CheckinHistory() {
             setLoading(true);
             const token = localStorage.getItem("token");
 
-            const res = await fetch("http://localhost:3001/api/admin/history", {
+            const API_URL = import.meta.env.VITE_API_URL;
+            fetch(`${API_URL}/api/admin/history`, {
+
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
