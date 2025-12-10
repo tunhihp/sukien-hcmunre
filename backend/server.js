@@ -26,9 +26,14 @@ const app = express();
 // ==============================
 // 🔥 FIX CORS – CHUẨN NHẤT
 // ==============================
+const cors = require("cors");
+
 app.use(cors({
-    origin: "http://localhost:5173",
-    credentials: true,
+  origin: [
+    "https://sukien-hcmunre.vercel.app",
+    "http://localhost:5173"
+  ],
+  credentials: true
 }));
 
 // ==============================
