@@ -177,18 +177,21 @@ function CheckinHistory() {
                             key={f}
                             onClick={() => setFilter(f)}
                             style={{
-                                padding: '12px 20px',
-                                borderRadius: '10px',
-                                border: 'none',
-                                cursor: 'pointer',
-                                fontSize: '14px',
-                                fontWeight: '500',
-                                backgroundColor: filter === f
-                                    ? 'rgba(139, 92, 246, 0.8)'
-                                    : 'rgba(255, 255, 255, 0.1)',
-                                color: 'white',
-                                border: `1px solid ${filter === f ? 'rgba(167, 139, 250, 0.6)' : 'rgba(255, 255, 255, 0.2)'}`
-                            }}
+                                    padding: '12px 20px',
+                                    borderRadius: '10px',
+                                    cursor: 'pointer',
+                                    fontSize: '14px',
+                                    fontWeight: '500',
+                                    backgroundColor: filter === f
+                                        ? 'rgba(139, 92, 246, 0.8)'
+                                        : 'rgba(255, 255, 255, 0.1)',
+                                    color: 'white',
+                                    border: `1px solid ${
+                                        filter === f 
+                                        ? 'rgba(167, 139, 250, 0.6)' 
+                                        : 'rgba(255, 255, 255, 0.2)'
+                                    }`
+                                }}
                         >
                             {f === 'all' && '📋 Tất cả'}
                             {f === 'today' && '📅 Hôm nay'}
