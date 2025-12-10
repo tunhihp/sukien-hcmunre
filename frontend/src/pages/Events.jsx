@@ -9,48 +9,10 @@ import { getEventImage } from "../utils/getEventImage";
 import logo from "../assets/images/logo.jpg";
 
 /* ====== ẢNH TĨNH GỐC CỦA EM (KHÔNG ĐỤNG) ====== */
-import iconPeople from "../assets/images/bongda.jpg";
-import iconTag from "../assets/images/hoithaocongnghe.jpg";
-import hienmauImg from "../assets/images/hienmau.jpg";
-import vanngheImg from "../assets/images/vannghe.jpg";
-import nhathongthaiImg from "../assets/images/nhathongthai.jpg";
-import chutichhcmImg from "../assets/images/bacchutich.jpg";
-import muahexanhImg from "../assets/images/chiendichmuahexanh.jpg";
-import thihoahauImg from "../assets/images/thihoahau.jpg";
-import busImg from "../assets/images/bus.jpg";
-import dabongImg from "../assets/images/dabong.jpg";
-import hoithihocthuatImg from "../assets/images/hoithihocthuat.jpg";
-import greenpointImg from "../assets/images/greenpoint.jpg";
-import tramxanhImg from "../assets/images/tramxanh.jpg";
-import baovedongvatImg from "../assets/images/baovedongvat.jpg";
-import taichinhcanhanImg from "../assets/images/taichinhcanhan.jpg";
-import taicheImg from "../assets/images/hanhtrinhtaiche.jpg";
-import hoithaoImg from "../assets/images/hoithao.jpg";
-import phapluatImg from "../assets/images/phapluat.jpg";
-import hienmautnImg from "../assets/images/hienmautn.jpg";
 import logoTruongImg from "../assets/images/LOGO trường.jpg";
 
 /* 20 SỰ KIỆN TĨNH + ẢNH GỐC */
 const staticEvents = [
-    { id: 1, title: "Hội thảo Công nghệ 2025", image: iconTag, date: "2025-02-10", location: "Hội trường A" },
-    { id: 2, title: "Cuộc thi Bóng đá khoa", image: iconPeople, date: "2025-03-15", location: "Sân trường" },
-    { id: 3, title: "Hiến máu tình nguyện đợt 3", image: hienmauImg, date: "2025-01-25", location: "Nhà A" },
-    { id: 4, title: "Đồng diễn & Hòa ca", image: vanngheImg, date: "2025-03-05", location: "Sảnh lớn" },
-    { id: 5, title: "Sinh viên Thông thái 2025", image: nhathongthaiImg, date: "2025-04-02", location: "Hội trường B" },
-    { id: 6, title: "Cuộc thi Chủ tịch HCM 2025", image: chutichhcmImg, date: "2025-05-01", location: "Nhà học C" },
-    { id: 7, title: "TN Mùa hè xanh 2025", image: muahexanhImg, date: "2025-03-20", location: "TP. Thủ Đức" },
-    { id: 8, title: "Nét đẹp sinh viên 2025", image: thihoahauImg, date: "2025-03-12", location: "Hội trường A" },
-    { id: 9, title: "Quay clip bus", image: busImg, date: "2025-02-28", location: "Sảnh trường" },
-    { id: 10, title: "Giải việt dã TP.HCM", image: dabongImg, date: "2025-02-22", location: "Công viên Văn hóa" },
-    { id: 11, title: "Hội thi học thuật Xanh", image: hoithihocthuatImg, date: "2025-04-07", location: "Khoa Môi Trường" },
-    { id: 12, title: "GreenPoint – Thu rác đổi quà", image: greenpointImg, date: "2025-05-17", location: "Sân C" },
-    { id: 13, title: "Đổi rác – Nhận quà", image: tramxanhImg, date: "2025-02-07", location: "Cổng trường" },
-    { id: 14, title: "Tình nguyện viên bảo vệ động vật", image: baovedongvatImg, date: "2025-01-18", location: "P.302" },
-    { id: 16, title: "Quản lý tài chính cá nhân", image: taichinhcanhanImg, date: "2025-04-12", location: "A1-205" },
-    { id: 17, title: "Talkshow Tái chế 2025", image: taicheImg, date: "2025-01-29", location: "Sảnh B" },
-    { id: 18, title: "Hội thao Khoa MT", image: hoithaoImg, date: "2025-03-30", location: "Sân vận động" },
-    { id: 19, title: "Thi Online Luật BVMT", image: phapluatImg, date: "2025-02-14", location: "Online" },
-    { id: 20, title: "Hiến máu TN đợt 5", image: hienmautnImg, date: "2025-04-20", location: "Nhà A" },
 ];
 
 const gradientBg = "linear-gradient(135deg,#1e1b4b,#2e1065,#312e81)";
@@ -206,6 +168,7 @@ function Events() {
                     <option value="cultural">Văn hóa</option>
                     <option value="environment">Môi trường</option>
                     <option value="community">Cộng đồng</option>
+                    <option value="community">Hoạt động truyền thông</option>
                 </select>
             </div>
 
@@ -301,23 +264,45 @@ function Events() {
                         </div>
 
                         {/* BUTTON */}
-                        <Link
-                            to={`/events/${event.id}`}
-                            style={{
-                                display: "block",
-                                padding: "12px",
-                                background: "linear-gradient(90deg,#38bdf8,#0ea5e9)",
-                                borderRadius: "12px",
-                                textAlign: "center",
-                                fontWeight: "700",
-                                color: "white",
-                                textDecoration: "none",
-                                fontSize: "16px",
-                                boxShadow: "0 4px 12px rgba(0, 170, 255, 0.35)"
-                            }}
-                        >
-                            🔍 Xem chi tiết
-                        </Link>
+                        {/* CHECK HẾT HẠN */}
+                        {new Date(event.date) < new Date() ? (
+                            // NÚT HẾT HẠN – KHÔNG NHẤN ĐƯỢC
+                            <div
+                                style={{
+                                    padding: "12px",
+                                    background: "#9ca3af",
+                                    borderRadius: "12px",
+                                    textAlign: "center",
+                                    fontWeight: "700",
+                                    color: "white",
+                                    fontSize: "16px",
+                                    opacity: 0.9,
+                                    cursor: "not-allowed"
+                                }}
+                            >
+                                ⛔ HẾT HẠN ĐĂNG KÝ
+                            </div>
+                        ) : (
+                            // NÚT XEM CHI TIẾT – BÌNH THƯỜNG
+                            <Link
+                                to={`/events/${event.id}`}
+                                style={{
+                                    display: "block",
+                                    padding: "12px",
+                                    background: "linear-gradient(90deg,#38bdf8,#0ea5e9)",
+                                    borderRadius: "12px",
+                                    textAlign: "center",
+                                    fontWeight: "700",
+                                    color: "white",
+                                    textDecoration: "none",
+                                    fontSize: "16px",
+                                    boxShadow: "0 4px 12px rgba(0, 170, 255, 0.35)"
+                                }}
+                            >
+                                🔍 Xem chi tiết
+                            </Link>
+                        )}
+
                     </div>
                 ))}
             </div>

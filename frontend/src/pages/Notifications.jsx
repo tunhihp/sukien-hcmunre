@@ -1,6 +1,7 @@
 ﻿import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import logo from "../assets/images/logo.jpg";
 
 const Notifications = () => {
     const { user } = useAuth();
@@ -116,21 +117,98 @@ const Notifications = () => {
                 )}
             </div>
 
-            <div
+            {/* FOOTER */}
+            <footer
                 style={{
-                    textAlign: "center",
-                    marginTop: 60,
-                    opacity: 0.6,
-                    fontSize: 14,
-                    color: "#475569"
+                    marginTop: "60px",
+                    padding: "35px 20px",
+                    background: "rgba(255, 255, 255, 0.6)",
+                    borderTop: "2px solid #cce7ff",
+                    fontFamily: "Inter, Poppins, sans-serif",
+                    backdropFilter: "blur(6px)",
+                    borderRadius: "8px",
                 }}
             >
-                HCMUNRE Notification Center
-                <br />
-                Hệ thống thông báo thông minh cho sinh viên
-            </div>
+                <div
+                    style={{
+                        maxWidth: "900px",
+                        margin: "0 auto",
+                        display: "flex",
+                        gap: "25px",
+                        alignItems: "flex-start",
+                    }}
+                >
+                    {/* LOGO */}
+                    <img
+                        src={logo}
+                        alt="HCMUNRE Logo"
+                        style={{
+                            width: "75px",
+                            height: "75px",
+                            borderRadius: "6px",
+                            border: "1px solid #d0e7ff",
+                            padding: "5px",
+                            background: "#fff",
+                        }}
+                    />
+
+                    {/* RIGHT CONTENT */}
+                    <div style={{ flex: 1 }}>
+                        <p style={{ fontWeight: "700", fontSize: "20px", color: "#0f172a", marginBottom: "6px" }}>
+                            HCMUNRE Event Manager
+                        </p>
+
+                        <p style={{ fontSize: "14px", color: "#1e293b", marginBottom: "12px" }}>
+                            Nền tảng hỗ trợ đăng ký sự kiện – quét mã QR – và quản lý điểm rèn luyện dành cho sinh viên.
+                        </p>
+
+                        <p style={{ fontWeight: "700", fontSize: "15px", color: "#0d9488", marginBottom: "6px" }}>
+                            Thông tin liên hệ
+                        </p>
+
+                        <p style={contactStyle}>📍 236B Lê Văn Sỹ, Phường Tân Sơn Hòa, TP. Hồ Chí Minh</p>
+                        <p style={contactStyle}>✉️ 1050080149@hcmunre.edu.vn</p>
+
+                        <div style={{ marginTop: "10px", fontSize: "12px", color: "#64748b" }}>
+                            © 2025 HCMUNRE - Phát triển bởi sinh viên, vì cộng đồng sinh viên.
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     );
 };
+
+///////////////////////// STYLE COMPONENTS /////////////////////////
+
+const SectionTitle = ({ text }) => (
+    <h3
+        style={{
+            color: "#000",
+            marginTop: "28px",
+            fontWeight: 700,
+            background: "rgba(46,134,193,0.12)",
+            padding: "10px 14px",
+            borderRadius: "12px",
+            borderLeft: "4px solid #3b82f6",
+        }}
+    >
+        {text}
+    </h3>
+);
+
+const ulStyle = {
+    marginLeft: "22px",
+    marginTop: "10px",
+    fontWeight: 500,
+    color: "#000",
+};
+
+const contactStyle = {
+    margin: "4px 0",
+    fontSize: "14px",
+    color: "#475569",
+};
+
 
 export default Notifications;

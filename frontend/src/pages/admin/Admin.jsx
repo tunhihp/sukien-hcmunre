@@ -10,6 +10,7 @@ function Admin() {
     const [users, setUsers] = useState([]);
     const [eventHistory, setEventHistory] = useState([]);
     const [events, setEvents] = useState([]);
+    const [userRegisterHistory, setUserRegisterHistory] = useState([]);
 
     const [tab, setTab] = useState('account');
 
@@ -40,6 +41,30 @@ function Admin() {
 
         fetchUsers();
 
+                // ========== LỊCH SỬ ĐĂNG KÝ NGƯỜI DÙNG ==========
+        const fetchUserRegisterHistory = async () => {
+            try {
+                const res = await fetch("http://localhost:3001/api/admin/user-register-history");
+                const data = await res.json();
+
+                console.log("📌 DATA LỊCH SỬ TRẢ VỀ:", data); 
+
+                const mapped = data.map(e => ({
+                    name: e.ho_ten,
+                    mssv: e.mssv,
+                    class: e.lop,
+                    event: e.ten_su_kien,
+                    time: e.ngay_dang_ky
+                }));
+
+                setUserRegisterHistory(mapped);
+
+            } catch (err) {
+                console.error("❌ Lỗi tải lịch sử đăng ký:", err);
+            }
+        };
+
+        fetchUserRegisterHistory();
 
         // ========== LẤY DANH SÁCH SỰ KIỆN ==========
         const fetchEvents = async () => {
@@ -155,6 +180,7 @@ function Admin() {
                 {[
                     { key: 'account', label: '👤 Quản lý tài khoản' },
                     { key: 'event', label: '📝 Lịch sử sự kiện' },
+                    { key: 'userRegister', label: '📄 Lịch sử đăng ký' },
                     { key: 'events', label: '📅 Quản lý sự kiện' },
                     { key: 'qr', label: '📲 Quét QR' },
                     { key: 'dashboard', label: '📊 Dashboard' }
@@ -223,7 +249,6 @@ function Admin() {
                 </div>
             )}
 
-
             {/* ========== TAB 2: EVENT HISTORY ========== */}
             {tab === 'event' && (
                 <div>
@@ -231,6 +256,72 @@ function Admin() {
                 </div>
             )}
 
+            {/* ========== TAB: USER HISTORY ========== */}
+            {tab === 'userRegister' && (
+                <div>
+                    <h3 style={{
+                        fontSize: '24px',
+                        marginBottom: '16px',
+                        fontWeight: 700,
+                        color: '#0f172a'
+                    }}>
+                    </h3>
+
+                    <table
+                        style={{
+                            width: "100%",
+                            borderCollapse: "separate",
+                            borderSpacing: 0,
+                            background: "rgba(255,255,255,0.75)",
+                            borderRadius: "16px",
+                            overflow: "hidden",
+                            boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+                            fontFamily: "Inter, Segoe UI, sans-serif"
+                        }}
+                    >
+                        <thead>
+                            <tr style={{ background: "#bbdefb" }}>
+                                {["STT", "Họ tên", "MSSV", "Lớp", "Sự kiện", "Thời gian đăng ký"].map((h, idx) => (
+                                    <th
+                                        key={idx}
+                                        style={{
+                                            padding: "12px 16px",
+                                            textAlign: "left",
+                                            color: "#0f172a",
+                                            fontWeight: 700,
+                                            borderBottom: "2px solid #90caf9",
+                                            fontSize: 14
+                                        }}
+                                    >
+                                        {h}
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {userRegisterHistory.map((e, i) => (
+                                <tr
+                                    key={i}
+                                    style={{
+                                        transition: "0.25s",
+                                        borderBottom: "1px solid #e0e7ff"
+                                    }}
+                                    onMouseEnter={(row) => row.currentTarget.style.background = "#f0f9ff"}
+                                    onMouseLeave={(row) => row.currentTarget.style.background = "transparent"}
+                                >
+                                    <td style={cellU}>{i + 1}</td>
+                                    <td style={cellU}>{e.name}</td>
+                                    <td style={cellU}>{e.mssv}</td>
+                                    <td style={cellU}>{e.class}</td>
+                                    <td style={cellU}>{e.event}</td>
+                                    <td style={cellU}>{new Date(e.time).toLocaleString()}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
 
             {/* ========== TAB 3: LIST EVENTS ========== */}
             {tab === 'events' && (
@@ -555,5 +646,13 @@ const cellStyle = {
     fontSize: 14,
     borderBottom: "1px solid #e2e8f0"
 };
+
+const cellU = {
+    padding: "12px 16px",
+    color: "#0f172a",
+    fontSize: 14,
+    fontWeight: 500
+};
+
 
 export default Admin;

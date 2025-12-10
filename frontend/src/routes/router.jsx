@@ -9,26 +9,7 @@ import Events from '../pages/Events';
 import About from '../pages/About';
 import Extend from '../pages/Extend';
 import Community from '../pages/Community';
-import StudentRegisterList from '../pages/StudentRegisterList';
 import ForgotPassword from '../pages/ForgotPassword';
-import FootballEventDetail from '../pages/FootballEventDetail';
-import BloodDonation from '../pages/BloodDonation';
-import PatrioticChorusEvent from '../pages/PatrioticChorusEvent';
-import SmartStudentEvent from '../pages/SmartStudentEvent';
-import UncleHoContest from '../pages/UncleHoContest';
-import VolunteerSupportEvent from '../pages/VolunteerSupportEvent';
-import BeautyContest from '../pages/BeautyContest';
-import BusOpeningEvent from '../pages/BusOpeningEvent';
-import StudentRunEvent from '../pages/StudentRunEvent';
-import FutureGreenEvent from '../pages/FutureGreenEvent';
-import GreenPointEvent from '../pages/GreenPointEvent';
-import RecycleEvent from '../pages/RecycleEvent';
-import EnvVolunteer from '../pages/EnvVolunteer';
-import FinanceWorkshop from '../pages/FinanceWorkshop';
-import GreenPointTalkshow from '../pages/GreenPointTalkshow';
-import EnvSports2025 from '../pages/EnvSports2025';
-import EnvLawContest from '../pages/EnvLawContest';
-import BloodDonation2025 from '../pages/BloodDonation2025';
 import VerifyOTP from '../pages/VerifyOTP';
 import EventDetail from '../pages/EventDetail';
 
@@ -75,28 +56,7 @@ export const router = createBrowserRouter([
 
             /* 🔔 THÔNG BÁO */
             { path: "/notifications", element: <Notifications /> },
-
-            { path: 'student-events', element: <StudentRegisterList /> },
             { path: 'forgot-password', element: <ForgotPassword /> },
-            { path: 'football-event', element: <FootballEventDetail /> },
-            { path: 'blood-donation', element: <BloodDonation /> },
-            { path: 'patriotic-chorus', element: <PatrioticChorusEvent /> },
-            { path: 'smart-student-event', element: <SmartStudentEvent /> },
-            { path: 'chu-tich-ho-chi-minh', element: <UncleHoContest /> },
-            { path: 'volunteer-support', element: <VolunteerSupportEvent /> },
-            { path: 'beauty-contest', element: <BeautyContest /> },
-            { path: 'bus-opening-event', element: <BusOpeningEvent /> },
-            { path: 'student-run', element: <StudentRunEvent /> },
-            { path: 'future-green', element: <FutureGreenEvent /> },
-            { path: 'greenpoint', element: <GreenPointEvent /> },
-            { path: 'recycle', element: <RecycleEvent /> },
-            { path: 'env-volunteer', element: <EnvVolunteer /> },
-            { path: 'finance-workshop', element: <FinanceWorkshop /> },
-            { path: 'greenpoint-talkshow', element: <GreenPointTalkshow /> },
-            { path: 'env-sports-2025', element: <EnvSports2025 /> },
-            { path: 'env-law-contest', element: <EnvLawContest /> },
-            { path: 'blood-donation-2025', element: <BloodDonation2025 /> },
-
             { path: 'verify-otp', element: <VerifyOTP /> },
 
             /* PRIVATE ROUTES */

@@ -30,6 +30,35 @@ router.get("/users", async (req, res) => {
     }
 });
 
+// ========== LẤY LỊCH SỬ ĐĂNG KÝ NGƯỜI DÙNG ==========
+router.get("/user-register-history", async (req, res) => {
+    try {
+        const pool = await sql.connect(config);
+
+        const query = `
+            SELECT 
+                nd.ho_ten,
+                nd.mssv,
+                nd.lop,
+                sk.title AS ten_su_kien,
+                dk.ngay_dang_ky
+            FROM dang_ky_su_kien dk
+            JOIN nguoi_dung nd ON nd.ma_nguoi_dung = dk.ma_nguoi_dung
+            JOIN su_kien sk ON sk.id = dk.ma_su_kien
+            ORDER BY dk.ngay_dang_ky DESC
+        `;
+
+        const result = await pool.request().query(query);
+
+        console.log("✔ User Register History:", result.recordset);
+
+        res.json(result.recordset);
+
+    } catch (error) {
+        console.log("❌ Lỗi API user-register-history:", error);
+        res.status(500).json({ error: "Lỗi server" });
+    }
+});
 
 // ========== LẤY LỊCH SỬ CHECK-IN ==========
 router.get("/history", async (req, res) => {
