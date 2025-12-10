@@ -1,4 +1,4 @@
-﻿const express = require("express");
+const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const { connectDB } = require("./db");
@@ -10,6 +10,7 @@ const eventCountRoutes = require("./routes/eventCount");
 const registerRoutes = require("./routes/eventRegister");
 const myTicketRoutes = require("./routes/myTickets");
 const checkinRoutes = require("./routes/checkin");
+
 const adminRoutes = require("./routes/admin");
 const adminEventHistoryRoutes = require("./routes/adminEventHistory");
 const adminMessagesRoutes = require("./routes/adminMessages");
@@ -23,18 +24,19 @@ const pointRoutes = require("./routes/points");
 
 const app = express();
 
-// ==============================
-// 🔥 FIX CORS – CHUẨN NHẤT
-// ==============================
-const cors = require("cors");
 
+// ==============================
+// 🔥 FIX CORS (CHUẨN CHO RENDER)
+// ==============================
 app.use(cors({
   origin: [
-    "https://sukien-hcmunre.vercel.app",
-    "http://localhost:5173"
+    /vercel\.app$/,
+    /onrender\.com$/,
+    /localhost/
   ],
   credentials: true
 }));
+
 
 // ==============================
 // 🟩 BODY PARSER
@@ -42,11 +44,12 @@ app.use(cors({
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
+
 // ==============================
-// 🟦 STATIC UPLOADS (rất quan trọng)
-// Ảnh từ /uploads luôn hiển thị đúng
+// 🟦 STATIC UPLOADS
 // ==============================
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 // ==============================
 // 🟨 API ROUTES
@@ -66,19 +69,27 @@ app.use("/api/admin/chat", require("./routes/adminChat"));
 
 app.use("/api/history", historyRoutes);
 app.use("/api/notifications", require("./routes/notifications"));
-
 app.use("/api/messages", messagesRoutes);
 app.use("/api/chat", chatRoutes);
-app.use("/api", decodeRoutes);
 
+app.use("/api", decodeRoutes);
 app.use("/api/qr", qrRoutes);
 app.use("/api/points", pointRoutes);
-app.use("/api/drl", pointRoutes); // alias
+app.use("/api/drl", pointRoutes);
+
 
 // ==============================
-// 🚀 START SERVER
+// 🚀 START SERVER (CHUẨN RENDER)
 // ==============================
-connectDB().then(() => {
-    console.log("✨ Server chạy tại cổng 3001…");
-    app.listen(3001);
-});
+const PORT = process.env.PORT || 3001;
+
+connectDB()
+  .then(() => {
+    app.listen(PORT, () =>
+      console.log(`✨ Server chạy trên PORT ${PORT}`)
+    );
+  })
+  .catch(err => {
+    console.error("❌ Lỗi kết nối database:", err);
+    process.exit(1);
+  });
