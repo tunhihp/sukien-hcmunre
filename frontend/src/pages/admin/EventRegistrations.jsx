@@ -155,7 +155,6 @@ function EventRegistrations() {
                     style={{
                         padding: '12px 24px',
                         borderRadius: '10px',
-                        border: 'none',
                         cursor: 'pointer',
                         fontSize: '14px',
                         fontWeight: '500',
