@@ -83,12 +83,12 @@ app.use("/api/drl", pointRoutes);
 // ==============================
 const PORT = process.env.PORT || 3001;
 
-connectDB()
-  .then(() => {
-    app.listen(PORT, () =>
-      console.log(`✨ Server chạy trên PORT ${PORT}`)
-    );
-  })
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log(`✨ Server đang chạy trên cổng ${PORT}...`);
+    });
+});
+
   .catch(err => {
     console.error("❌ Lỗi kết nối database:", err);
     process.exit(1);
