@@ -171,18 +171,21 @@ function EventRegistrations() {
                 <button
                     onClick={() => setActiveTab('checkins')}
                     style={{
-                        padding: '12px 24px',
-                        borderRadius: '10px',
-                        border: 'none',
-                        cursor: 'pointer',
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        backgroundColor: activeTab === 'checkins' 
-                            ? 'rgba(139, 92, 246, 0.8)' 
-                            : 'rgba(255, 255, 255, 0.1)',
-                        color: 'white',
-                        border: `1px solid ${activeTab === 'checkins' ? 'rgba(167, 139, 250, 0.6)' : 'rgba(255, 255, 255, 0.2)'}`
-                    }}
+                                padding: '12px 24px',
+                                borderRadius: '10px',
+                                cursor: 'pointer',
+                                fontSize: '14px',
+                                fontWeight: '500',
+                                backgroundColor: activeTab === 'registrations'
+                                    ? 'rgba(139, 92, 246, 0.8)'
+                                    : 'rgba(255, 255, 255, 0.1)',
+                                color: 'white',
+                                border: `1px solid ${
+                                    activeTab === 'registrations'
+                                    ? 'rgba(167, 139, 250, 0.6)'
+                                    : 'rgba(255, 255, 255, 0.2)'
+                                }`
+                            }}
                 >
                     ✅ Check-in ({checkins.length})
                 </button>
